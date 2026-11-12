@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>NutriAgent 學術論文 A 至 Z 綱要與期末專題規範深度解析資訊圖表</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+    background-color: #0b0f19;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    line-height: 1.25;
+  }
+
+  /* A4 橫式畫布：297mm x 210mm */
+  .a4-landscape {
+    width: 297mm;
+    height: 210mm;
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    position: relative;
+    overflow: hidden;
+    padding: 7mm 8mm 6mm 8mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* 頂部 Header */
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #38bdf8;
+    margin-bottom: 5px;
+  }
+  .title-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .super-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: #38bdf8;
+    text-transform: uppercase;
+  }
+  .main-title {
+    font-size: 15.5pt;
+    font-weight: 900;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .main-title span.badge {
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    font-size: 8pt;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .header-meta {
+    text-align: right;
+    font-size: 7.5pt;
+    color: #94a3b8;
+  }
+  .header-meta b {
+    color: #38bdf8;
+  }
+
+  /* 核心四柱頂欄 */
+  .pillar-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .pillar-card {
+    background: #1e293b;
+    border-left: 3px solid;
+    padding: 4px 7px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+  }
+  .p-1 { border-color: #38bdf8; }
+  .p-2 { border-color: #10b981; }
+  .p-3 { border-color: #f59e0b; }
+  .p-4 { border-color: #ec4899; }
+  .pillar-card .tag {
+    font-size: 6.8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+  }
+  .p-1 .tag { color: #38bdf8; }
+  .p-2 .tag { color: #34d399; }
+  .p-3 .tag { color: #fbbf24; }
+  .p-4 .tag { color: #f472b6; }
+  .pillar-card .desc {
+    font-size: 7.2pt;
+    color: #cbd5e1;
+    margin-top: 1px;
+    line-height: 1.2;
+  }
+
+  /* 主網格：5 列高密度排列對應 A2Z 核心五大區段 */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1.05fr 0.95fr 1.35fr 1fr;
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .col-panel {
+    background: #131d31;
+    border: 1px solid #1e293b;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .col-panel.hero-panel {
+    border-color: #0284c7;
+    background: #0f1e36;
+  }
+
+  .col-title {
+    font-size: 8pt;
+    font-weight: 800;
+    color: #f1f5f9;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .col-title .index-badge {
+    background: #334155;
+    color: #38bdf8;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 6.8pt;
+  }
+
+  /* 條目列表 (Numbering & Lettering) */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5px;
+    overflow: hidden;
+  }
+
+  .item-row {
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid #1e293b;
+    border-radius: 3px;
+    padding: 3px 5px;
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .item-row.highlight {
+    background: rgba(2, 132, 199, 0.12);
+    border-color: #0284c7;
+  }
+  .item-row.success {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #059669;
+  }
+  .item-row.warning {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: #d97706;
+  }
+
+  .item-key {
+    background: #0f172a;
+    color: #38bdf8;
+    font-weight: 900;
+    font-size: 7.2pt;
+    padding: 1px 4px;
+    border-radius: 2px;
+    min-width: 20px;
+    text-align: center;
+    border: 1px solid #334155;
+    flex-shrink: 0;
+  }
+  .item-row.highlight .item-key {
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #38bdf8;
+  }
+
+  .item-content {
+    flex: 1;
+    font-size: 6.8pt;
+    color: #cbd5e1;
+    line-height: 1.25;
+  }
+  .item-content b {
+    color: #f8fafc;
+    font-weight: 700;
+  }
+  .item-content span.sub {
+    color: #94a3b8;
+    display: block;
+    font-size: 6.4pt;
+  }
+
+  /* 特殊數值徽章 */
+  .stat-pill {
+    display: inline-block;
+    background: #1e293b;
+    color: #38bdf8;
+    font-size: 6.2pt;
+    font-weight: 700;
+    padding: 0 4px;
+    border-radius: 2px;
+    border: 1px solid #334155;
+  }
+  .stat-pill.green { color: #34d399; border-color: #065f46; background: #064e3b; }
+  .stat-pill.red { color: #f87171; border-color: #7f1d1d; background: #450a0a; }
+
+  /* 底部 Footer 關鍵摘要條 */
+  .footer-bar {
+    margin-top: 5px;
+    border-top: 1px solid #1e293b;
+    padding-top: 4px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 8px;
+    font-size: 6.8pt;
+    color: #94a3b8;
+  }
+  .footer-block {
+    background: #131d31;
+    padding: 3px 6px;
+    border-radius: 3px;
+    border-left: 2px solid #38bdf8;
+  }
+  .footer-block b { color: #e2e8f0; }
+
+  /* 演算法極簡晶片 */
+  .algo-chip {
+    background: #0b1324;
+    border: 1px dashed #334155;
+    padding: 2px 4px;
+    margin-top: 2px;
+    border-radius: 2px;
+    font-family: Consolas, monospace;
+    font-size: 6.3pt;
+    color: #a5f3fc;
+  }
+</style>
+</head>
+<body>
+
+<div class="a4-landscape">
+
+  <!-- 頂部標題區 -->
+  <div class="header-bar">
+    <div class="title-group">
+      <div class="super-title">ACADEMIC RESEARCH & PROPOSAL ARCHITECTURE INFOGRAPHIC (A4 LANDSCAPE)</div>
+      <div class="main-title">
+        NutriAgent 論文 A 至 Z 綱要與期末專題全流程深度解析
+        <span class="badge">第 10 組：外食決策代理人</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      標準依據：<b>《期末專題提案規範》</b> (Domain AI Agent) × <b>《A2Z outline example》</b> (2020 SOP)<br>
+      核心精神：<b>確定性臨床硬閘門先於 LLM</b> ｜ <b>數字逐字接地</b> ｜ <b>誤差意識 IoT</b>
+    </div>
+  </div>
+
+  <!-- Domain AI Agent 核心四柱頂欄 -->
+  <div class="pillar-strip">
+    <div class="pillar-card p-1">
+      <div class="tag"><span>[01] AI AGENT</span><span>ReAct & Gemini 2.5</span></div>
+      <div class="desc">Planner 意圖識別、例外降級、工具排程調度，串接 Gemini 2.5 Flash 提供接地自然對話與推理。</div>
+    </div>
+    <div class="pillar-card p-2">
+      <div class="tag"><span>[02] DOMAIN KNOWLEDGE</span><span>Clinical Guidelines</span></div>
+      <div class="desc">2025 AHA/ACC 高血壓、ADA 2026 糖尿、ACR 痛風、KDIGO 腎病、TFDA 11 類過敏原之確定性規則。</div>
+    </div>
+    <div class="pillar-card p-3">
+      <div class="tag"><span>[03] DATA ANALYTICS</span><span>Dynamic TDEE & Health</span></div>
+      <div class="desc">Mifflin-St Jeor 算 BMR + 0.65 阻尼係數動態熱量；跨感測器檢核震動假步數，三餐預算分配。</div>
+    </div>
+    <div class="pillar-card p-4">
+      <div class="tag"><span>[04] REAL-WORLD APP</span><span>Local Food DB & GPS</span></div>
+      <div class="desc">超商與便當店營養標籤座標庫 (K1)，Haversine 演算法半徑 1.2–2.5 km 檢索可步行購買真實餐點。</div>
+    </div>
+  </div>
+
+  <!-- 主網格 5 欄高密度 NUMBERING 排列 -->
+  <div class="main-grid">
+
+    <!-- 欄 1：A-F 摘要與 G-L 緒論 -->
+    <div class="col-panel">
+      <div class="col-title">
+        <span>[SECTION 1] 摘要與緒論架構</span>
+        <span class="index-badge">A-F & G-L</span>
+      </div>
+      <div class="item-list">
+        <div class="item-row highlight">
+          <div class="item-key">A</div>
+          <div class="item-content"><b>Attention Getter (引題)</b>：台灣 7 成外食族，上班族天天外食逾 4 成；14 億高血壓與代謝症候群，大眾高度轉向飲食 LLM。</div>
+        </div>
+        <div class="item-row warning">
+          <div class="item-key">B</div>
+          <div class="item-content"><b>But / Challenge (挑戰)</b>：LLM 數值嚴重飄移，超商便當鈉含量被低估且 CV 達 20–70%；手錶動態熱量誤差 >30%。</div>
+        </div>
+        <div class="item-row success">
+          <div class="item-key">C</div>
+          <div class="item-content"><b>Cure (提出解法)</b>：提出 NutriAgent：規則管安全與數值，LLM 負責表達與理解，達成實體接地外食決策。</div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">D</div>
+          <div class="item-content"><b>Development (八大模組)</b>：Planner 調度動態 TDEE、AHA 閘門、Haversine 空間檢索與 Gemini 混合排序。</div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">E</div>
+          <div class="item-content"><b>Experiments (實驗規模)</b>：50 組臨床 Profile、≥200 筆餐點庫、≥200 句對話集、5 種 Baselines 與 10 項評估指標。</div>
+        </div>
+        <div class="item-row success">
+          <div class="item-key">F</div>
+          <div class="item-content"><b>Findings (驗證現況)</b>：CVR/AVR 維持 0.0%，接地率 100%；離線原型 45 次測試達成熱量 MAE 114.48 kcal。</div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">G-H</div>
+          <div class="item-content"><b>General & However</b>：慢病生活型態與飲食密不可分，點出 LLM 幻覺對腎臟/心血管病患具有致命醫療風險。</div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">I-J</div>
+          <div class="item-content"><b>In Literature & Judgement</b>：比較 MyFitnessPal (無推薦)、通用 LLM (無地理與數值)、MORL-A2C (軟性目標非硬約束)。</div>
+        </div>
+        <div class="item-row highlight">
+          <div class="item-key">K-L</div>
+          <div class="item-content"><b>Keypoint & Organization</b>：確立五大創新 (硬約束先於 LLM、數值接地、混合排序、誤差 IoT、離線韌性) 與全文導覽。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 2：M-O 文獻分析與三大核心爭論 -->
+    <div class="col-panel">
+      <div class="col-title">
+        <span>[SECTION 2] 文獻漏斗與深度調研</span>
+        <span class="index-badge">M-O & Q1-Q3</span>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-key">M</div>
+          <div class="item-content">
+            <b>Methods 文獻 1:1 分類</b>
+            <span class="sub">• 3.1 AI: LLM Agent, 排序器, 健康推薦, 知識圖譜, RL</span>
+            <span class="sub">• 3.2 Domain: 高血壓, 糖尿, 痛風, CKD, 能量平衡, 依從性</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">N</div>
+          <div class="item-content"><b>New Trends (新趨勢)</b>：知識與約束結合之生成模型 (KERL, OGSRL)，但多停留在離線食譜，欠缺外食實體可購性。</div>
+        </div>
+        <div class="item-row highlight">
+          <div class="item-key">O</div>
+          <div class="item-content">
+            <b>Organize (14篇總表與漏斗)</b>
+            <span class="sub">現有研究 (食譜推薦/通用LLM) → 限制 (無外食/數值漂移) → Gap (兼顧安全與實體可達) → 本專題創新落地。</span>
+          </div>
+        </div>
+        <div class="item-row warning">
+          <div class="item-key">Q1</div>
+          <div class="item-content">
+            <b>五大核心思維模式 (Mindset)</b>
+            <span class="sub">1.安全不可交易 2.看型態不只看卡路里 3.依從性決定成效 4.能量平衡動態帶誤差 5.情境決定可行性。</span>
+          </div>
+        </div>
+        <div class="item-row warning">
+          <div class="item-key">Q2</div>
+          <div class="item-content">
+            <b>三大重要專業爭論 (Debates)</b>
+            <span class="sub">① LLM 直算營養 vs 查表接地 (採查表硬驗證)<br>② 穿戴熱量能否直接做減脂 (採 0.65 阻尼控誤)<br>③ CKD 鉀磷一律限 vs 個別化 (依 eGFR 階梯式限制)</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">Q3</div>
+          <div class="item-content"><b>十個深度理解問題</b>：涵蓋 Trade-off 判斷、Failure Case 降級、外食低估高血壓補償與回饋學習機制。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 3：PA-PM 系統架構與數學約束 (核心) -->
+    <div class="col-panel hero-panel">
+      <div class="col-title">
+        <span>[SECTION 3] 系統架構與數學約束</span>
+        <span class="index-badge">PA-PM 8大模組</span>
+      </div>
+      <div class="item-list">
+        <div class="item-row highlight">
+          <div class="item-key">PA-C</div>
+          <div class="item-content">
+            <b>Aim, Benefit & Cure 原理</b>
+            <span class="sub">數秒內輸出 Top-3 安全外食。守門機制：LLM 僅能存取已通過臨床過濾之安全餐點池，從源頭根除違規。</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">PD</div>
+          <div class="item-content">
+            <b>8 大模組體系 (Architecture)</b>
+            <span class="sub">①情境 ②輸入 ③Planner ④資料取得 ⑤分析引擎 ⑥領域知識 ⑦推薦決策 ⑧互動輸出</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">PE</div>
+          <div class="item-content">
+            <b>4 大實體資料庫 (DBs)</b>
+            <span class="sub">K1: 外食營養標籤庫 ｜ K2: 臨床規則庫<br>K3: TFDA 過敏原別名 ｜ K4: 互動偏好記憶庫</span>
+          </div>
+        </div>
+        <div class="item-row success">
+          <div class="item-key">PF</div>
+          <div class="item-content">
+            <b>Formulation (動態熱量與門檻)</b>
+            <div class="algo-chip">TDEE = BMR + 0.65 × Active_kcal<br>Meal_Budget = min(TDEE × ratio[t], 900 kcal)<br>門檻: 鈉 ≤700mg, 糖 ≤5g, 飽和脂 ≤5g</div>
+          </div>
+        </div>
+        <div class="item-row highlight">
+          <div class="item-key">PM</div>
+          <div class="item-content">
+            <b>Math 混合評分與更新步長</b>
+            <div class="algo-chip">Score = 0.50·q + 0.35·NutriFit - 0.15·Dist<br>q = 0.5·Preference + 0.5·GeminiScore<br>更新步長: 採納 +1.0 ｜ 太油 -0.6 ｜ 跳過 -0.2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 4：四段演算法與決策流程 (Pseudocode) -->
+    <div class="col-panel">
+      <div class="col-title">
+        <span>[SECTION 4] 四段演算法與邏輯流程</span>
+        <span class="index-badge">PI 演算法 1-4</span>
+      </div>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-key">ALG1</div>
+          <div class="item-content">
+            <b>對話主迴路 (Main Dialog Loop)</b>
+            <span class="sub">解析意圖 (查詢/回饋) → 調度穿戴與 GPS → 觸發臨床閘門 → 調度排序器 → 數值驗證 → 輸出。</span>
+          </div>
+        </div>
+        <div class="item-row success">
+          <div class="item-key">ALG2</div>
+          <div class="item-content">
+            <b>確定性臨床硬閘門 (Hard Gatekeeper)</b>
+            <span class="sub">TFDA 11 類別名過敏排除 → 臨床慢性病單元檢驗 (鈉/糖/普林/鉀磷) → 熱量超標 1.25x 阻絕 → 形成安全池。</span>
+          </div>
+        </div>
+        <div class="item-row highlight">
+          <div class="item-key">ALG3</div>
+          <div class="item-content">
+            <b>混合排序與數值接地 (Hybrid Rank & Ground)</b>
+            <span class="sub">本地偏好結合 Gemini 打亂評分 → 輸出 Top-3 → 驗證回覆中卡路里數值，若漂移立即降級為 Deterministic 模板。</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">ALG4</div>
+          <div class="item-content">
+            <b>線上偏好即時更新 (Online Pref Update)</b>
+            <span class="sub">擷取 Human-in-the-loop 反饋 (太油/太鹹/想喝湯) → 即時微調口味 Profile 權重向量。</span>
+          </div>
+        </div>
+        <div class="item-row warning">
+          <div class="item-key">FLOW</div>
+          <div class="item-content">
+            <b>7 大決策菱形與安全降級</b>
+            <span class="sub">穿戴失敗降級靜態 BMR ｜ 安全池為空擴大半徑 ｜ Gemini 故障轉全離線排序 ｜ 數值不符轉模板。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 5：實驗設計、指標與結論展望 -->
+    <div class="col-panel">
+      <div class="col-title">
+        <span>[SECTION 5] 實驗驗證與結論展望</span>
+        <span class="index-badge">Q-V & W-Z</span>
+      </div>
+      <div class="item-list">
+        <div class="item-row highlight">
+          <div class="item-key">Q</div>
+          <div class="item-content">
+            <b>10 大定量評估指標 (Metrics)</b>
+            <span class="sub"><span class="stat-pill green">CVR = 0%</span> <span class="stat-pill green">AVR = 0%</span> <span class="stat-pill green">接地率 = 100%</span><br>意圖準確率、熱量 MAE ≤180kcal、離線延遲 ≤50ms、Gemini P95 ≤5s、降級率、位置一致性、SUS。</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">R</div>
+          <div class="item-content">
+            <b>5 組比較基準 (Baselines)</b>
+            <span class="sub">B1: 最近熱門 ｜ B2: 靜態熱量 ｜ B3: Gemini Zero-Shot ｜ B4: 無閘門消融 ｜ B5: 純離線規則。</span>
+          </div>
+        </div>
+        <div class="item-row success">
+          <div class="item-key">S-V</div>
+          <div class="item-content">
+            <b>實驗設置與原型成果 (Verification)</b>
+            <span class="sub">50 組 Profile + 200 餐點 + 15 位使用者 5 天測試。<br><b>離線原型實測</b>：45 次自動檢核全部通過，CVR 0%，熱量 MAE 114.48 kcal，規則延遲僅 0.08 ms。</span>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-key">W-Y</div>
+          <div class="item-content">
+            <b>產出總結 (Yields & Deliverables)</b>
+            <span class="sub">開源 Python/Flask 核心、Web UI、CLI 示範、自動化測試集、OpenSpec 規格書、14 篇文獻報告。</span>
+          </div>
+        </div>
+        <div class="item-row highlight">
+          <div class="item-key">Z</div>
+          <div class="item-content">
+            <b>Zen (結論與未來工作)</b>
+            <span class="sub">升級 Schema-based LLM 意圖解析，資料庫擴充鉀磷與 eGFR，長期整合 Contextual Bandit 強化學習。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 底部 Footer 關鍵摘要條 -->
+  <div class="footer-bar">
+    <div class="footer-block">
+      <b>專題評審核心看點</b>：跳脫純 Wrapper Chatbot 思維，建立<b>可驗證、可單元測試之確定性醫療硬約束</b>，解決生成式 AI 數值飄移與醫療幻覺風險。
+    </div>
+    <div class="footer-block">
+      <b>工程落地性</b>：串接 Android Health Connect 穿戴資料，結合超商鮮食座標庫，支援離線降級運作模式。
+    </div>
+    <div class="footer-block">
+      <b>學術規範嚴格度</b>：100% 對應 A2Z SOP (A–Z) 與期末專題提案規範 6 大必備章節，具備完備數學定義與演算法。
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

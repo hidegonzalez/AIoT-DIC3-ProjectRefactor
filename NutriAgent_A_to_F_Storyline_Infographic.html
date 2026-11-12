@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>NutriAgent 學術論文 A to F 六段式研究故事流高密度資訊圖表 (A4 橫式)</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
+    background-color: #070b14;
+    color: #e2e8f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    line-height: 1.25;
+  }
+
+  /* A4 橫式精準規格：297mm x 210mm */
+  .a4-landscape {
+    width: 297mm;
+    height: 210mm;
+    background: #0d1527;
+    border: 1px solid #1e293b;
+    position: relative;
+    overflow: hidden;
+    padding: 7mm 8mm 6mm 8mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* 頂部 Header */
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #38bdf8;
+    margin-bottom: 6px;
+  }
+  .title-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .super-title {
+    font-size: 8.5pt;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #38bdf8;
+    text-transform: uppercase;
+  }
+  .main-title {
+    font-size: 16pt;
+    font-weight: 900;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .main-title .badge {
+    background: linear-gradient(135deg, #0284c7, #2563eb);
+    font-size: 8pt;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .header-meta {
+    text-align: right;
+    font-size: 7.2pt;
+    color: #94a3b8;
+    line-height: 1.3;
+  }
+  .header-meta b {
+    color: #38bdf8;
+  }
+
+  /* 核心主網格：6 欄等寬橫向高密度流水線 (A to F) */
+  .six-col-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* 每一階段卡片 */
+  .phase-col {
+    background: #111b2e;
+    border: 1px solid #1e293b;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* 頂部色彩標記條 */
+  .phase-col::before {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+  }
+  .col-a::before { background: #38bdf8; } /* 天藍 - 引題 */
+  .col-b::before { background: #f43f5e; } /* 警示紅 - 挑戰 */
+  .col-c::before { background: #10b981; } /* 醫療綠 - 方案 */
+  .col-d::before { background: #8b5cf6; } /* 紫色 - 系統開發 */
+  .col-e::before { background: #f59e0b; } /* 琥珀金 - 實驗設置 */
+  .col-f::before { background: #06b6d4; } /* 青色 - 成果發現 */
+
+  /* 階段標題頭 */
+  .phase-header {
+    padding: 6px 6px 4px 6px;
+    border-bottom: 1px solid #1e293b;
+    background: rgba(15, 23, 42, 0.7);
+  }
+  .phase-letter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    font-size: 10pt;
+    font-weight: 900;
+    color: #fff;
+    margin-right: 4px;
+  }
+  .col-a .phase-letter-badge { background: #0284c7; }
+  .col-b .phase-letter-badge { background: #e11d48; }
+  .col-c .phase-letter-badge { background: #059669; }
+  .col-d .phase-letter-badge { background: #7c3aed; }
+  .col-e .phase-letter-badge { background: #d97706; }
+  .col-f .phase-letter-badge { background: #0891b2; }
+
+  .phase-title-text {
+    font-size: 8.5pt;
+    font-weight: 800;
+    color: #f1f5f9;
+  }
+  .phase-sub {
+    font-size: 6.5pt;
+    color: #94a3b8;
+    margin-top: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* 內容容器 */
+  .phase-body {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Numbered Card 條目 */
+  .card-item {
+    background: rgba(30, 41, 59, 0.55);
+    border: 1px solid #1e293b;
+    border-radius: 3px;
+    padding: 3.5px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .card-item.accent {
+    background: rgba(2, 132, 199, 0.12);
+    border-color: #0369a1;
+  }
+  .card-item.danger {
+    background: rgba(225, 29, 72, 0.12);
+    border-color: #be123c;
+  }
+  .card-item.success {
+    background: rgba(5, 150, 105, 0.12);
+    border-color: #047857;
+  }
+  .card-item.warning {
+    background: rgba(217, 119, 6, 0.12);
+    border-color: #b45309;
+  }
+
+  .item-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .item-num {
+    font-size: 6.8pt;
+    font-weight: 900;
+    padding: 0 4px;
+    border-radius: 2px;
+    background: #0f172a;
+    color: #38bdf8;
+    border: 1px solid #334155;
+  }
+  .col-b .item-num { color: #fb7185; }
+  .col-c .item-num { color: #34d399; }
+  .col-d .item-num { color: #c084fc; }
+  .col-e .item-num { color: #fbbf24; }
+  .col-f .item-num { color: #22d3ee; }
+
+  .item-label {
+    font-size: 7.2pt;
+    font-weight: 800;
+    color: #f8fafc;
+  }
+
+  .item-desc {
+    font-size: 6.6pt;
+    color: #cbd5e1;
+    line-height: 1.25;
+  }
+  .item-desc b {
+    color: #f1f5f9;
+  }
+
+  /* 數據亮點晶片 */
+  .data-chip {
+    background: #0b1220;
+    border: 1px solid #334155;
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 6.2pt;
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1px;
+  }
+  .data-chip b {
+    color: #38bdf8;
+    font-family: Consolas, monospace;
+    font-size: 6.8pt;
+  }
+  .data-chip.red b { color: #f43f5e; }
+  .data-chip.green b { color: #10b981; }
+  .data-chip.amber b { color: #f59e0b; }
+
+  /* 底部公式與重點卡片 */
+  .formula-card {
+    background: #0b1324;
+    border: 1px dashed #334155;
+    padding: 3px 4px;
+    border-radius: 2px;
+    font-family: Consolas, monospace;
+    font-size: 6.2pt;
+    color: #a5f3fc;
+    line-height: 1.2;
+  }
+
+  /* 底部 Footer */
+  .footer-bar {
+    margin-top: 5px;
+    border-top: 1px solid #1e293b;
+    padding-top: 4px;
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr 1fr;
+    gap: 8px;
+    font-size: 6.7pt;
+    color: #94a3b8;
+  }
+  .footer-block {
+    background: #111b2e;
+    padding: 3px 6px;
+    border-radius: 3px;
+    border-left: 2px solid #38bdf8;
+  }
+  .footer-block b { color: #e2e8f0; }
+</style>
+</head>
+<body>
+
+<div class="a4-landscape">
+
+  <!-- 頂部標題區 -->
+  <div class="header-bar">
+    <div class="title-group">
+      <div class="super-title">ACADEMIC RESEARCH STORYLINE INFOGRAPHIC (A4 LANDSCAPE)</div>
+      <div class="main-title">
+        NutriAgent 論文摘要「A 至 F」六段式研究故事流高密度解析
+        <span class="badge">A2Z SOP STANDARD</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      依據標準：<b>《A2Z outline example.pdf》</b> 六段論證邏輯 × <b>《期末專題提案作業規範.pdf》</b> 評分指標<br>
+      故事核心：<b>外食與慢病痛點 (A)</b> → <b>LLM 數值幻覺 (B)</b> → <b>守門式 Agent (C)</b> → <b>8大架構與動態能量 (D)</b> → <b>50 臨床驗證 (E)</b> → <b>100% 接地實測 (F)</b>
+    </div>
+  </div>
+
+  <!-- A to F 六欄等寬全景故事網格 -->
+  <div class="six-col-grid">
+
+    <!-- 欄 A: Attention Getter -->
+    <div class="phase-col col-a">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">A</span>
+          <span class="phase-title-text">Attention Getter</span>
+        </div>
+        <div class="phase-sub">研究引題與現實背景</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item accent">
+          <div class="item-head">
+            <span class="item-label">外食族群規模極大</span>
+            <span class="item-num">A-1</span>
+          </div>
+          <div class="item-desc">台灣外食人口高達 <b>7 成</b>，上班族天天外食逾 <b>4 成</b>，飲食選擇深受便利性與周邊店家限制。</div>
+          <div class="data-chip"><span>外食人口佔比</span><b>70.0%</b></div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">慢病盛行與健檢紅字</span>
+            <span class="item-num">A-2</span>
+          </div>
+          <div class="item-desc">國內每 <b>10 人有 3 人</b> 具代謝症候群；全球 14 億高血壓患者，高鈉高油外食為主要元兇。</div>
+          <div class="data-chip red"><span>代謝症候群率</span><b>30.0% (3/10)</b></div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">諮詢習慣典範轉移</span>
+            <span class="item-num">A-3</span>
+          </div>
+          <div class="item-desc">生活節奏緊湊，民眾大量改用 <b>對話式 LLM</b> 作為日常外食點餐與健康諮詢入口。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">醫學營養治療 (MNT)</span>
+            <span class="item-num">A-4</span>
+          </div>
+          <div class="item-desc">傳統 MNT 侷限於醫院衛教單，外食族缺乏<b>點餐當下即時且可執行</b>的專業引導。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 B: But / Challenge -->
+    <div class="phase-col col-b">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">B</span>
+          <span class="phase-title-text">But / Challenge</span>
+        </div>
+        <div class="phase-sub">既有限制與致命缺口</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item danger">
+          <div class="item-head">
+            <span class="item-label">LLM 數值飄移與幻覺</span>
+            <span class="item-num">B-1</span>
+          </div>
+          <div class="item-desc">通用 LLM 生成數值不可靠：超商便當鈉含量被嚴重低估，數值變異係數高達 <b>20–70%</b>。</div>
+          <div class="data-chip red"><span>鈉低估變異 CV</span><b>20% – 70%</b></div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">臨床禁忌致命風險</span>
+            <span class="item-num">B-2</span>
+          </div>
+          <div class="item-desc">LLM 常向腎病推薦高鉀湯品、向痛風推薦高普林內臟，直接造成<b>嚴重醫療安全違規</b>。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">健康被當軟性權衡</span>
+            <span class="item-num">B-3</span>
+          </div>
+          <div class="item-desc">現有學術演算法 (如 MORL-A2C) 常將臨床禁忌當成<b>可妥協的軟性 Penalty</b>，非絕對硬約束。</div>
+        </div>
+
+        <div class="card-item warning">
+          <div class="item-head">
+            <span class="item-label">穿戴熱量誤差過大</span>
+            <span class="item-num">B-4</span>
+          </div>
+          <div class="item-desc">智慧手錶即時活動熱量誤差普遍超過 <b>30%</b>，未經阻尼修正將引導過量飲食。</div>
+          <div class="data-chip red"><span>手錶熱量誤差</span><b>> 30.0%</b></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 C: Cure / Scheme -->
+    <div class="phase-col col-c">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">C</span>
+          <span class="phase-title-text">Cure / Solution</span>
+        </div>
+        <div class="phase-sub">核心解法與創新架構</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item success">
+          <div class="item-head">
+            <span class="item-label">守門式架構 (Guarded)</span>
+            <span class="item-num">C-1</span>
+          </div>
+          <div class="item-desc"><b>硬約束先於 LLM</b>：模型僅能存取已通過臨床規則檢驗的安全餐點池，從源頭根絕違規。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">數值逐字引用驗證</span>
+            <span class="item-num">C-2</span>
+          </div>
+          <div class="item-desc">熱量與營養數值<b>100% 來自資料庫</b>；LLM 回覆若有篡改即強制觸發 Deterministic 備援模板。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">職責精準分工</span>
+            <span class="item-num">C-3</span>
+          </div>
+          <div class="item-desc"><b>規則引擎管安全與數字</b>，<b>Gemini 2.5 Flash 管自然語義理解與接地表達</b>，發揮最大綜效。</div>
+        </div>
+
+        <div class="card-item accent">
+          <div class="item-head">
+            <span class="item-label">實體外食商用落地</span>
+            <span class="item-num">C-4</span>
+          </div>
+          <div class="item-desc">跳脫紙上食譜，串接台灣超商鮮食與連鎖便當座標庫，聚焦<b>步行可達真實餐點</b>。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 D: Development / Method -->
+    <div class="phase-col col-d">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">D</span>
+          <span class="phase-title-text">Development</span>
+        </div>
+        <div class="phase-sub">系統工程與八大模組</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">八大模組協調體系</span>
+            <span class="item-num">D-1</span>
+          </div>
+          <div class="item-desc">①情境 ②輸入 ③Planner ④資料 ⑤分析 ⑥知識 ⑦推薦 ⑧輸出，由 ReAct Planner 統一調度。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">動態 TDEE 阻尼計算</span>
+            <span class="item-num">D-2</span>
+          </div>
+          <div class="formula-card">TDEE = BMR + 0.65 × Active_kcal<br>MealBudget = min(TDEE×ratio[t], 900)</div>
+          <div class="item-desc" style="margin-top:2px;">Mifflin-St Jeor 公式算 BMR，0.65 阻尼係數過濾穿戴熱量虛高。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">空間半徑與臨床閘門</span>
+            <span class="item-num">D-3</span>
+          </div>
+          <div class="item-desc">Haversine 檢索 <b>1.2–2.5 km</b>；高血壓鈉 ≤700mg、糖 ≤5g、飽和脂 ≤5g、痛風避高普林。</div>
+        </div>
+
+        <div class="card-item accent">
+          <div class="item-head">
+            <span class="item-label">雙軌混合排序打分</span>
+            <span class="item-num">D-4</span>
+          </div>
+          <div class="formula-card">Score = 0.50·q + 0.35·NutriFit - 0.15·Dist<br>q = 0.5·Preference + 0.5·GeminiScore</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 E: Experiments / Setup -->
+    <div class="phase-col col-e">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">E</span>
+          <span class="phase-title-text">Experiments</span>
+        </div>
+        <div class="phase-sub">實驗設計與基準比較</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item warning">
+          <div class="item-head">
+            <span class="item-label">臨床檔案與餐點庫</span>
+            <span class="item-num">E-1</span>
+          </div>
+          <div class="item-desc"><b>50 組</b>臨床合成 Profile (涵蓋高血壓、痛風、CKD)、<b>≥200 筆</b>真實外食庫與 <b>≥200 句</b>對話集。</div>
+          <div class="data-chip amber"><span>測試規模</span><b>50 Profiles / 200 Meals</b></div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">五組消融與基準比較</span>
+            <span class="item-num">E-2</span>
+          </div>
+          <div class="item-desc"><b>B1</b> 最近熱門 ｜ <b>B2</b> 靜態熱量 ｜ <b>B3</b> Gemini Zero-Shot ｜ <b>B4</b> 無硬閘門消融 ｜ <b>B5</b> 純離線。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">十項多維量化指標</span>
+            <span class="item-num">E-3</span>
+          </div>
+          <div class="item-desc">CVR (禁忌違規)、AVR (過敏違規)、接地率、意圖準確率、熱量 MAE、端到端延遲、SUS 等。</div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">真實使用者場域測試</span>
+            <span class="item-num">E-4</span>
+          </div>
+          <div class="item-desc">規劃 <b>10–15 位</b>上班族與大學生於 5 個工作日執行午餐決策 A/B Test 與 SUS 評估。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 欄 F: Findings / Results -->
+    <div class="phase-col col-f">
+      <div class="phase-header">
+        <div style="display: flex; align-items: center;">
+          <span class="phase-letter-badge">F</span>
+          <span class="phase-title-text">Findings</span>
+        </div>
+        <div class="phase-sub">預期成果與原型實測</div>
+      </div>
+      <div class="phase-body">
+        <div class="card-item success">
+          <div class="item-head">
+            <span class="item-label">臨床零違規保障</span>
+            <span class="item-num">F-1</span>
+          </div>
+          <div class="item-desc">確定性閘門把關下，臨床違規率 (CVR) 與過敏原違規率 (AVR) 絕對維持在 <b>0.0%</b>。</div>
+          <div class="data-chip green"><span>CVR / AVR 違規率</span><b>0.0% (零容忍)</b></div>
+        </div>
+
+        <div class="card-item success">
+          <div class="item-head">
+            <span class="item-label">100% 數值接地保障</span>
+            <span class="item-num">F-2</span>
+          </div>
+          <div class="item-desc">卡路里與三大營養素數值接地率達 <b>100%</b>，徹底消弭商業對話模型之營養幻覺。</div>
+          <div class="data-chip green"><span>數值接地吻合率</span><b>100.0%</b></div>
+        </div>
+
+        <div class="card-item accent">
+          <div class="item-head">
+            <span class="item-label">離線原型檢核驗證</span>
+            <span class="item-num">F-3</span>
+          </div>
+          <div class="item-desc">目前原型通過 <b>45 次</b>自動檢核，熱量 MAE 達 <b>114.48 kcal</b> (標準 ≤180)，閘門延遲僅 <b>0.08 ms</b>。</div>
+          <div class="data-chip"><span>熱量 MAE</span><b>114.48 kcal</b></div>
+          <div class="data-chip"><span>閘門運算延遲</span><b>0.08 ms</b></div>
+        </div>
+
+        <div class="card-item">
+          <div class="item-head">
+            <span class="item-label">工程管線有效性確認</span>
+            <span class="item-num">F-4</span>
+          </div>
+          <div class="item-desc">證明守門機制能在高負載下維持高可用性，即使 LLM 服務斷線亦能優雅降級為全離線推薦。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 底部 Footer 關鍵摘要條 -->
+  <div class="footer-bar">
+    <div class="footer-block">
+      <b>A2Z 摘要邏輯審查亮點</b>：完美閉環「<b>A 引出需求 → B 揭示 LLM 數值缺陷 → C 提出守門 Agent → D 落地 8 大模組 → E 嚴謹實驗對照 → F 達成 0% 違規</b>」。
+    </div>
+    <div class="footer-block">
+      <b>臨床與工程雙重落地</b>：採用 2025 AHA/ACC 等國際指引作為不可逾越之硬門檻，結合 0.65 穿戴阻尼係數平衡實際代謝。
+    </div>
+    <div class="footer-block">
+      <b>期末專題指標達成</b>：提供完整量化數據、Baselines 消融設計與開源可交付原型，展現超越單純 Wrapper 的工程深度。
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
+
